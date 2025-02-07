@@ -78,26 +78,34 @@ class PeminjamanController extends Controller
      */
     public function updateStatus(Request $request, string $id)
     {
-        if ($peminjaman) {
+        $request->validate([
+            'status' => 'required|in:belum kembali,sudah kembali,proses,batal'
+        ]);
+    
+        $peminjaman = Peminjaman::find($id);
+    
+        if (!$peminjaman) { // Perbaikan pengecekan data
             return redirect()->route('peminjaman.index')->with('error', 'Data Peminjaman Tidak ditemukan');
         }
-
+    
         if ($request->status == 'sudah kembali') {
             $peminjaman->tanggal_kembali = now();
-
-            // Tambah Stok Barang Saat Barang diKembalikan 
-            $inventaris = inventaris::where('id_inventaris', $peminjaman->id_inventaris)->first();
-            if ($inventaris){
+    
+            // Tambah Stok Barang Saat Barang Dikembalikan 
+            $inventaris = Inventaris::where('id_inventaris', $peminjaman->id_inventaris)->first();
+            if ($inventaris) {
                 $inventaris->stok += 1;
                 $inventaris->save();
             }
         }
-
+    
         $peminjaman->status = $request->status;
+        $peminjaman->petugas_id = Auth::id();
         $peminjaman->save();
-
-        return redirect()->route('peminjaman.index')->with('Succes','Status Berhasil diUbah');
+    
+        return redirect()->route('peminjaman.index')->with('success', 'Status Berhasil diubah');
     }
+    
 
     /**
      * Remove the specified resource from storage.

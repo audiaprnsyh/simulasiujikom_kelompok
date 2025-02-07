@@ -25,4 +25,10 @@ class Peminjaman extends Model
     {
         return $this->belongsTo(Inventaris::class, 'id_inventaris', 'id_inventaris');
     }
+
+    public function petugas()
+{
+    return $this->belongsTo(User::class, 'petugas_id')->select('id', 'name');
+}
+
 }
