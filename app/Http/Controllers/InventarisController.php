@@ -32,12 +32,14 @@ class InventarisController extends Controller
        $validate = $request -> validate([
             'id_inventaris' => 'required|unique:inventaris',
             'nama_barang' => 'required|max:200',
-            'kondisi' => 'required|max:200',
+            'kondisi' => 'required|in:Baik,Rusak,Perbaikan',
             'stok' => 'required|max:200',
             'tanggal_register' => 'required|max:200'
         ]);
 
         Inventaris::create($validate);
+
+        return redirect()->route('inventaris.index')->with('success',"Data Berhasil Disimpan");
     }
 
     /**
@@ -51,32 +53,35 @@ class InventarisController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Inventaris $inventaris)
+    public function edit(Inventaris $inventari)
     {
-       return view('inventaris.edit', compact('inventaris'));
+       return view('inventaris.edit', compact('inventari'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Inventaris $inventaris)
+    public function update(Request $request, Inventaris $inventari)
     {
-        $validate = $request -> validate([
-            'id_inventaris' => 'required|unique:inventaris'. $inventaris->id,
+         $request->validate([
+            'id_inventaris' => 'required|unique:inventaris,id_inventaris,'. $inventari->id,
             'nama_barang' => 'required|max:200',
-            'kondisi' => 'required|max:200',
+            'kondisi' => 'required|in:Baik,Rusak,Perbaikan',
             'stok' => 'required|max:200',
             'tanggal_register' => 'required|max:200'
         ]);
 
-        $inventaris->update($validate);
+        $inventari->update($request->all());
+
+        return redirect()->route('inventaris.index')->with('success',"Data Berhasil Disimpan");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Inventaris $inventaris)
+    public function destroy(Inventaris $inventari)
     {
-        $inventaris->delete();
+        $inventari->delete();
+        return redirect()->route('inventaris.index')->with('success',"Data Berhasil DiHapus");
     }
 }

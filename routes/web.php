@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InventarisController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PeminjamanController;
@@ -27,6 +28,7 @@ Route::post('/peminjaman', [PeminjamanController::class, 'store'])->name('peminj
 Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
 Route::put('/peminjaman/{$id}', [PeminjamanController::class, 'updateStatus'])->name('peminjaman.updateStatus');
 
+Route::resource('inventaris', InventarisController::class);
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     
