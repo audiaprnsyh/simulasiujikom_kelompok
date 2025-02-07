@@ -82,5 +82,6 @@ class InventarisController extends Controller
     public function destroy(Inventaris $inventari)
     {
         $inventari->delete();
+        return redirect()->route('inventaris.index')->with('success',"Data Berhasil DiHapus");
     }
 }
