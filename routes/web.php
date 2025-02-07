@@ -28,6 +28,8 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/peminjaman/create', [PeminjamanController::class, 'create'])->name('peminjaman.create');
 Route::post('/peminjaman', [PeminjamanController::class, 'store'])->name('peminjaman.store');
+Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman.index');
+Route::put('/peminjaman/{$id}', [PeminjamanController::class, 'updateStatus'])->name('peminjaman.updateStatus');
 
 Route::resource('inventaris', InventarisController::class);
 

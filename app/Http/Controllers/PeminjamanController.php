@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Inventaris;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 
@@ -36,7 +37,7 @@ class PeminjamanController extends Controller
             'tanggal_pinjam' => 'required',
         ]);
 
-        Inventaris::where('id_inventaris', $request->id_inventaris)->first();
+      $inventaris =   Inventaris::where('id_inventaris', $request->id_inventaris)->first();
 
         if ($inventaris->stok > 0) {
             $inventaris->stok = $inventaris->stok - 1;
@@ -51,6 +52,8 @@ class PeminjamanController extends Controller
             'nama_peminjam' => $request->nama_peminjam,
             'tanggal_pinjam' => $request->tanggal_pinjam,
         ]);
+
+        return redirect()->route('peminjaman.index')->with('success', 'Peminjaman berhasil');
 
     }
 
@@ -73,9 +76,27 @@ class PeminjamanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function updateStatus(Request $request, string $id)
     {
-        //
+        if ($peminjaman) {
+            return redirect()->route('peminjaman.index')->with('error', 'Data Peminjaman Tidak ditemukan');
+        }
+
+        if ($request->status == 'sudah kembali') {
+            $peminjaman->tanggal_kembali = now();
+
+            // Tambah Stok Barang Saat Barang diKembalikan 
+            $inventaris = inventaris::where('id_inventaris', $peminjaman->id_inventaris)->first();
+            if ($inventaris){
+                $inventaris->stok += 1;
+                $inventaris->save();
+            }
+        }
+
+        $peminjaman->status = $request->status;
+        $peminjaman->save();
+
+        return redirect()->route('peminjaman.index')->with('Succes','Status Berhasil diUbah');
     }
 
     /**
@@ -83,6 +104,7 @@ class PeminjamanController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $peminjaman = Peminjaman::find();
+        $peminjaman->delete();
     }
 }

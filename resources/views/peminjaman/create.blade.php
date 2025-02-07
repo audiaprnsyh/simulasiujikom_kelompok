@@ -10,16 +10,18 @@
     <h1>Form Peminjam</h1>
 
     <form action="{{route('peminjaman.store')}}" method="post">
+        @csrf
         <label for="id_inventaris">Nama Barang</label>
-        <option value="id_inventaris">
+        <select name="id_inventaris" >
             @foreach ($inventaris as $item)
-                <select name="{{$item->id_inventaris}}" id="" >{{$item->nama_barang}}</select>
+                <option value="{{$item->id_inventaris}}" id="" >{{$item->nama_barang}}</option>
             @endforeach
-        </option>
+    </select>
         <label for="tanggal_pinjam">Tanggal Peminjam</label>
         <input type="date" name="tanggal_pinjam" id="tanggal_pinjam">
         <label for="nama_peminjam">Nama Peminjam</label>
         <input type="text" name="nama_peminjam" id="nama_peminjam">
+        <button type="submit">submit</button>
     </form>
 </body>
 </html>
