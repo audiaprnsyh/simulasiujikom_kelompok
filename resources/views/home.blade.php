@@ -41,7 +41,6 @@
     <div class="container mt-5">
         <h2 class="text-center mb-4">Data Inventaris</h2>
 
-        <a href="/inventaris/create" class="btn btn-primary mb-3">Tambah Inventaris</a>
 
         <!-- Input untuk pencarian -->
         <div class="mb-3">
