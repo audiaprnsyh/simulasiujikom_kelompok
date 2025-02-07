@@ -54,7 +54,7 @@ class PeminjamanController extends Controller
             'tanggal_pinjam' => $request->tanggal_pinjam,
         ]);
 
-        return redirect()->route('peminjaman.index')->with('success', 'Peminjaman berhasil');
+        return redirect()->route('home')->with('success', 'Peminjaman berhasil');
 
     }
 

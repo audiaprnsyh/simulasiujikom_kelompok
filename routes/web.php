@@ -17,11 +17,9 @@ use App\Http\Controllers\PeminjamanController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/home', [Controller::class, 'home']);
+
+Route::get('/', [Controller::class, 'home'])->name('home');
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
