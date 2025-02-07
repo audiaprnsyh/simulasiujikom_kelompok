@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('inventaris', function (Blueprint $table) {
             $table->id();
-            $table->string('id_inventaris');
+            $table->string('id_inventaris')->unique();
             $table->string('nama_barang');
             $table->enum('kondisi', ['Baik', 'Rusak', 'Perbaikan']);
             $table->integer('stok');
