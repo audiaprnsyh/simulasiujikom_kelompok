@@ -30,14 +30,6 @@
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
 
-                <div class="mb-3">
-                    <label for="role" class="form-label">Login sebagai</label>
-                    <select class="form-control" id="role" name="role" required>
-                        <option value="admin">Admin</option>
-                        <option value="petugas">Petugas</option>
-                    </select>
-                </div>
-
                 <button type="submit" class="btn btn-primary w-100">Login</button>
             </form>
         </div>

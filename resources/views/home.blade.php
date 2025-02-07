@@ -5,70 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Inventaris</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <style>
-        /* Custom styling for sidebar */
-        .sidebar {
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 250px;
-            background-color: #343a40;
-            color: white;
-        }
+    <script>
+        // Fungsi pencarian tabel
+        function searchInventaris() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");  // ambil input pencarian
+            filter = input.value.toUpperCase();  // konversi pencarian ke huruf kapital
+            table = document.getElementById("inventarisTable");
+            tr = table.getElementsByTagName("tr");
 
-        .sidebar .nav-item {
-            margin: 20px 0;
+            // Loop melalui semua baris tabel dan sembunyikan yang tidak sesuai dengan pencarian
+            for (i = 1; i < tr.length; i++) {  // Mulai dari 1 karena baris pertama adalah header
+                td = tr[i].getElementsByTagName("td");
+                var found = false;
+                // Cek apakah ada kolom yang sesuai dengan pencarian
+                for (var j = 0; j < td.length; j++) {
+                    if (td[j]) {
+                        txtValue = td[j].textContent || td[j].innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            found = true;
+                        }
+                    }
+                }
+                // Tampilkan atau sembunyikan baris
+                if (found) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
         }
-
-        .sidebar .nav-link {
-            color: white;
-            font-size: 18px;
-        }
-
-        .sidebar .nav-link:hover {
-            background-color: #495057;
-        }
-
-        .content {
-            margin-left: 250px;
-            padding: 20px;
-        }
-    </style>
+    </script>
 </head>
 <body>
-    <div class="sidebar">
-        <div class="d-flex justify-content-center mt-4">
-            <h4>Admin Dashboard</h4>
-        </div>
-        <ul class="nav flex-column mt-4">
-            <li class="nav-item">
-                <a href="{{ route('dashboard') }}" class="nav-link">Beranda</a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('inventaris.create') }}" class="nav-link">Tambah Inventaris</a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('inventaris.index') }}" class="nav-link">Kelola Inventaris</a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
-            </li>
-        </ul>
-    </div>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Data Inventaris</h2>
 
-    <div class="content">
-        <h2 class="text-center">Data Inventaris</h2>
         <a href="/inventaris/create" class="btn btn-primary mb-3">Tambah Inventaris</a>
 
+        <!-- Input untuk pencarian -->
+        <div class="mb-3">
+            <input type="text" id="searchInput" onkeyup="searchInventaris()" class="form-control" placeholder="Cari data inventaris...">
+        </div>
+
+        <!-- Tampilkan jika ada pesan sukses -->
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
-        <table class="table table-bordered">
+        <!-- Tabel Data Inventaris -->
+        <table id="inventarisTable" class="table table-bordered">
             <thead>
                 <tr>
                     <th>ID Inventaris</th>
