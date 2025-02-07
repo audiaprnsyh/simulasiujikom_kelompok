@@ -21,15 +21,32 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($Peminjaman as $item)
-                <th>{{$item->id}}</th>
-                <th>{{$item->id_inventaris}}</th>
-                <th>{{$item->nama_barang}}</th>
-                <th>{{$item->nama_peminjam}}</th>
-                <th>{{$item->tanggal_pinjam}}</th>
-                <th>{{$item->tanggal_kembali}}</th>
-                <th>{{$item->status}}</th>
-                <th>{{$item->petugas}}</th>
+            @foreach ($peminjaman as $item)
+                <td>{{$item->id}}</td>
+                <td>{{$item->inventaris->id_inventaris}}</td>
+                <td>{{$item->inventaris->nama_barang}}</td>
+                <td>{{$item->nama_peminjam}}</td>
+                <td>{{$item->tanggal_pinjam}}</td>
+                <td>{{$item->tanggal_kembali}}</td>
+                <td>
+                    <form action="{{route('peminjaman.updateStatus')}}" method="post">
+                        @csrf
+                        @method('PUT')
+                        <select name="status" class="form-select form-select-sm @if(!$item->status) text-muted
+                            @elsif($item->status == 'belum_kembali') text-danger
+                            @elsif($item->status == 'sudah_kembali') text-succes
+                            @elsif($item->status == 'proses') text-warning
+                            @else text-secondary @endif"
+                                onchange="if(confirm('Yakin Mengubah Status?')) this.form.submit()">
+                            <option value="" {{!$item->status ? 'selected' : ''}} disabled>Pilih Status</option>
+                            <option value="belum_kembali" {{$item-> 'belum_kembali' ? 'selected' : ''}}>Belum Kembali</option>
+                            <option value="sudah_kembali" {{$item-> 'sudah_kembali' ? 'selected' : ''}}>Sudah_Kembali</option>
+                            <option value="proses" {{$item-> 'proses' ? 'selected' : ''}}>Proses</option>
+                            <option value="batal" {{$item-> 'batal' ? 'selected' : ''}}>Batal</option>
+                        </select>
+                    </form>
+                </td>
+                <td>{{$item->petugas}}</td>
             @endforeach
         </tbody>
     </table>
