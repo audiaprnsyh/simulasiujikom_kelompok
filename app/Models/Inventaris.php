@@ -14,7 +14,7 @@ class Inventaris extends Model
 
     public function peminjaman()
     {
-        return $this->hasMany(P)
+        return $this->hasMany(Peminjaman::class, 'id_inventaris', 'id_inventaris');
     }
     
 }
