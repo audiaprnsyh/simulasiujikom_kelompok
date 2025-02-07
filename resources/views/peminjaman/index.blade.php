@@ -6,15 +6,51 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Data Peminjaman</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styling for sidebar */
+        .sidebar {
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            background-color: #343a40;
+            color: white;
+        }
+
+        .sidebar .nav-item {
+            margin: 20px 0;
+        }
+
+        .sidebar .nav-link {
+            color: white;
+            font-size: 18px;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: #495057;
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body class="bg-light">
+    <div class="sidebar">
+        <div class="d-flex justify-content-center mt-4">
+            <h4>Admin Dashboard</h4>
+        </div>
+        @include('layouts.sidebar')
+    </div>
+    <div class="content">
+        <h2 class="text-center">Data Inventaris</h2>
+        <a href="/inventaris/create" class="btn btn-primary mb-3">Tambah Inventaris</a>
 
-    <div class="container mt-5">
-        <div class="card shadow-lg">
-            <div class="card-header bg-primary text-white">
-                <h3 class="text-center">Daftar Peminjaman</h3>
-            </div>
-            <div class="card-body">
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
                 <table class="table table-bordered table-striped">
                     <thead class="table-dark text-center">
                         <tr>

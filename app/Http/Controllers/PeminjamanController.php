@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Inventaris;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PeminjamanController extends Controller
 {

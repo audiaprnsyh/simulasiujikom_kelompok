@@ -19,7 +19,8 @@ return new class extends Migration
             $table->date('tanggal_pinjam');
             $table->date('tanggal_kembali')->nullable();
             $table->enum('status', ['proses', 'sudah kembali', 'belum kembali','batal'])->nullable();
-            $table->string('petugas')->nullable();
+            $table->unsignedBigInteger('petugas_id')->nullable(); 
+            $table->foreign('petugas_id')->references('id')->on('users')->onDelete('set null');
             $table->foreign('id_inventaris')->references('id_inventaris')->on('inventaris');
             $table->timestamps();
         });

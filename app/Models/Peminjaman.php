@@ -27,8 +27,8 @@ class Peminjaman extends Model
     }
 
     public function petugas()
-{
-    return $this->belongsTo(User::class, 'petugas_id')->select('id', 'name');
-}
+    {
+        return $this->belongsTo(User::class, 'petugas_id');
+    }
 
 }
