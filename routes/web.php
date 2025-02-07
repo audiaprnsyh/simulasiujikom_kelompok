@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InventarisController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PeminjamanController;
@@ -25,6 +26,7 @@ Route::post('/logout', [AuthController::class, 'logout']);
 Route::get('/peminjaman/create', [PeminjamanController::class, 'create'])->name('peminjaman.create');
 Route::post('/peminjaman', [PeminjamanController::class, 'store'])->name('peminjaman.store');
 
+Route::resource('inventaris', InventarisController::class);
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     
