@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Inventaris</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         /* Custom styling for sidebar */
@@ -51,6 +51,7 @@
             <li class="nav-item">
                 <a href="{{ route('inventaris.index') }}" class="nav-link">Kelola Inventaris</a>
             </li>
+
             <li class="nav-item">
                 <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -61,46 +62,10 @@
     </div>
 
     <div class="content">
-        <h2 class="text-center">Data Inventaris</h2>
-        <a href="/inventaris/create" class="btn btn-primary mb-3">Tambah Inventaris</a>
-
-        @if(session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
-
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>ID Inventaris</th>
-                    <th>Nama Barang</th>
-                    <th>Kondisi</th>
-                    <th>Stok</th>
-                    <th>Tanggal Register</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($inventaris as $item)
-                <tr>
-                    <td>{{ $item->id_inventaris }}</td>
-                    <td>{{ $item->nama_barang }}</td>
-                    <td>{{ $item->kondisi }}</td>
-                    <td>{{ $item->stok }}</td>
-                    <td>{{ $item->tanggal_register }}</td>
-                    <td>
-                        <a href="{{ route('inventaris.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <form action="/inventaris/{{ $item->id }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Hapus item ini?')">Hapus</button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+        <h2 class="mt-5">Selamat Datang, {{ Auth::user()->name }}</h2>
+        <p>Ini adalah dashboard admin. Anda dapat mengelola proyek, pengguna, dan melakukan pengaturan lainnya melalui sidebar di sebelah kiri.</p>
     </div>
-
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
