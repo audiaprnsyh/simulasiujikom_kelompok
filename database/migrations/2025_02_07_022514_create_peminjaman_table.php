@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('nama_barang');
             $table->string('nama_peminjam');
             $table->date('tanggal_pinjam');
-            $table->date('tanggal_kembali');
-            $table->enum('status', ['proses', 'sudah kembali', 'belum kembali','batal']);
-            $table->string('petugas');
+            $table->date('tanggal_kembali')->nullable();
+            $table->enum('status', ['proses', 'sudah kembali', 'belum kembali','batal'])->nullable();
+            $table->string('petugas')->nullable();
             $table->foreign('id_inventaris')->references('id_inventaris')->on('inventaris');
             $table->timestamps();
         });

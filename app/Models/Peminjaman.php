@@ -18,4 +18,9 @@ class Peminjaman extends Model
         'status',
         'petugas',
     ];
+
+    public function inventaris()
+    {
+        return $this->belongsTo(Inventaris::class, 'id_inventaris', 'id_inventaris');
+    }
 }

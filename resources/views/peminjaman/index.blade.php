@@ -10,16 +10,28 @@
     <table>
         <thead>
             <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
+                <th>Id Peminjaman</th>
+                <th>Id Inventaris</th>
+                <th>Nama Barang</th>
+                <th>Nama Peminjam</th>
+                <th>Tanggal Peminjaman</th>
+                <th>Tanggal Kembali</th>
+                <th>Status</th>
+                <th>Petugas</th>
             </tr>
         </thead>
+        <tbody>
+            @foreach ($Peminjaman as $item)
+                <th>{{$item->id}}</th>
+                <th>{{$item->id_inventaris}}</th>
+                <th>{{$item->nama_barang}}</th>
+                <th>{{$item->nama_peminjam}}</th>
+                <th>{{$item->tanggal_pinjam}}</th>
+                <th>{{$item->tanggal_kembali}}</th>
+                <th>{{$item->status}}</th>
+                <th>{{$item->petugas}}</th>
+            @endforeach
+        </tbody>
     </table>
 </body>
 </html>
